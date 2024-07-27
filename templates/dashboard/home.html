@@ -1,0 +1,30 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<section class='container text-center'>
+    <h3>Welcome</h3>
+    
+    <hr><br>
+
+    <div class="row">
+        {% for home in homes %}
+        <div class="col-md-3 mb-3">
+         
+          <a href={{home.url}}>
+                <div class="card">
+                    <img src="{{home.images.url}}" alt="Image" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{home.title}}</h5>
+                        {{home.desc}}
+                    </div>
+                </div>
+            </a>
+        </div>
+            {% endfor %}
+
+
+
+    </div>
+</section>
+{% endblock content %}

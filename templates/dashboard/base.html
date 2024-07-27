@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+{% url 'home page' as home %}
+{% url 'profile page' as profile %}
+{% url 'logout' as logout %}
+{% url 'login' as login %}
+{% url 'register' as register %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'js/googleapis.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/fontawsome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    
+    <title>{% block title %}Student-Dashboard{% endblock title %}</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home page' %}">Study Portal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item {% if request.path == home %} active {% endif %}">
+                  <a class="nav-link" href="{% url 'home page' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item {% if request.path == profile %} active {% endif %}">
+                  <a class="nav-link" href="{% url 'profile page' %}">Profile</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="{% url 'home page' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Options
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'books page' %}">Books</a>
+                    <a class="dropdown-item" href="{% url 'wiki page' %}">Wikipedia</a>
+                    <div class="dropdown-divider"></div>
+    
+                    <a class="dropdown-item" href="{% url 'dictionary page' %}">Dictionary</a>
+                    <a class="dropdown-item" href="{% url 'youtube page' %}">Youtube</a>
+                    <div class="dropdown-divider"></div>
+    
+                    <a class="dropdown-item" href="{% url 'todo page' %}">To-do</a>
+                    <a class="dropdown-item" href="{% url 'homework page' %}">HomeWork</a>
+                    <div class="dropdown-divider"></div>
+    
+                    <a class="dropdown-item" href="{% url 'notes page' %}">Notes</a>
+                    <a class="dropdown-item" href="{% url 'conversion page' %}">Conversion</a>
+                    <div class="dropdown-divider"></div>
+    
+                  </div>
+                </li>
+                <li class="nav-item {% if request.path == logout %} active {% endif %}">
+                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                 {% else %}
+                <li class="nav-item {% if request.path == register %} active {% endif %}">
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item {% if request.path == login %} active {% endif %}">
+                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+              </ul>
+           
+            </div>
+          </nav>    
+    </header>
+
+    <br><br>
+
+    <main>
+
+      {% if messages %}
+      {% for msg in messages %}
+      <div class="alert alert-{{msg.tags}}"> {{msg}} </div>
+      {% endfor %}
+      {% endif %}
+
+        {% block content %}
+        
+        {% endblock content %}
+    </main>
+
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <script src="{% static 'js/fontawsome.js' %}"></script>
+      <script src="{% static 'js/jquery.js' %}"></script>
+      <script src="{% static 'js/popper.js' %}"></script>
+
+</body>
+</html>
